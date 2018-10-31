@@ -37,12 +37,17 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente=Clientes::create($request->all());
+        $clientes=Clientes::create($request->all());
 
-        //return response()->json($cliente);
+        // $clientes=new Clientes();
+        // $clientes->nombre=$request->nombre;
+        // $clientes->ap=$request->ap;
+        // $clientes->save();
 
-        return redirect()->route('clientes.index')
-        ->with('info','Cliente guardado con exito');
+        return response()->json($clientes);
+
+        /*return redirect()->route('clientes.index')
+        ->with('info','Cliente guardado con exito');*/
         
     }
 

@@ -8,7 +8,7 @@
                 <div class="panel-heading">
                    Clientes
                     @can('clientes.create')
-                    <a href="{{ route('clientes.create') }}" class="btn btn-sm btn-primary pull-right">Nuevo</a>
+                    <a href="#" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalInsertar">Nuevo</a>
                     @endcan
                 </div>
 
@@ -36,7 +36,7 @@
                                 </td>
                                 <td width="10px">
                                 @can('clientes.edit')
-                                    <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-sm btn-default">Editar</a>
+                                    <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-sm btn-default" >Editar</a>
                                 @endcan
                                 </td>
                                 <td width="10px">
@@ -63,5 +63,88 @@
             </div>
         </div>
     </div>
+
+
 </div>
+
+{{--  Modal para insertar  --}}
+<div class="modal fade" id="modalInsertar" tabindex="-1" role="dialog" aria-labelledby="modalInsertarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInsertarLabel">Nuevo Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            {{ csrf_field() }}
+        <label for="">Nombre</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control">
+        <label for="">Apellidos</label>
+        <input type="text" name="ap" id="ap" placeholder="Nombre" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary " id="insertar">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{--  Modal para editar  --}}
+<div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="modalActualizarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalActualizarLabel">Editar Cliente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                mostrar
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary " id="insertar">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+<script src="{{  asset('js/jquery-3.min.js') }}"></script>
+
+<script>
+$(document).ready(function(){
+
+    $('#insertar').click(function(e){
+        
+        e.preventDefault();//cancela el submit
+        var nombre = $('input[name=nombre]').val();
+        var ap = $('input[name=ap]').val();
+        
+        $.ajax({
+            type:'post',
+            url:'clientes/store',
+            data:{
+                '_token': $('input[name=_token').val(),
+                'nombre': nombre,
+                'ap': ap
+            },
+            success:function(data){
+                window.location.reload();
+            },
+        });
+    });
+});//ready
+
+   
+
+</script>
+
+
 @endsection
