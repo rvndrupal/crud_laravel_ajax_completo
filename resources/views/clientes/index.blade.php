@@ -104,7 +104,12 @@
               </button>
             </div>
             <div class="modal-body">
-                mostrar
+                  {{ csrf_field() }}
+                
+              <label for="">Nombre</label>
+              <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="{{ $cliente->nombre }}" class="form-control">
+              <label for="">Apellidos</label>
+              <input type="text" name="ap" id="ap" placeholder="Nombre" class="form-control">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
